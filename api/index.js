@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
+import path from 'path';
 
 mongoose
     .connect("mongodb+srv://hiveatwork:hiveatwork@hospital-management.4t5xuja.mongodb.net/CMPT276?retryWrites=true&w=majority")
