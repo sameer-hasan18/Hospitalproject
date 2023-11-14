@@ -26,10 +26,10 @@ export default function About() {
       </h1>
       <ul class="list-disc pl-7">
         <li>  Sameer Hasan</li>
-        <li>  Ray</li>
-        <li>  Yeffry</li>
-        <li>  Thomas</li>
-        <li>  Forest</li>
+        <li>  William William</li>
+        <li>  Rayner Clifford Winardy</li>
+        <li>  Forest Wang</li>
+        <li>  Jeffrey Gao</li>
       </ul>
     </div>
   );

@@ -6,7 +6,8 @@ export default function HomeUser() {
   const [activeTab, setActiveTab] = useState('User');
 
   const [selectedDoctor, setSelectedDoctor] = useState(''); 
-  const [selectedTime, setSelectedTime] = useState(''); 
+  const [selectedTime, setSelectedTime] = useState('');
+  const [selectedDate, setSelectedDate] = useState(''); 
   const [selectedConcern, setSelectedConcern] = useState('');
   const [appButton, setAppButton] = useState(false);
 
@@ -20,6 +21,10 @@ export default function HomeUser() {
 
   const handleTimeSelect = (event) => {
     setSelectedTime(event.target.value);
+  };
+
+  const handleDateSelect = (event) => {
+    setSelectedDate(event.target.value);
   };
 
   const handleConcernSelect = (event) => {
@@ -47,6 +52,39 @@ export default function HomeUser() {
           </div>
         ))}
       </div>
+    );
+  };
+
+  const ExistingAppointmentTable = () => {
+    const appointmentData = [
+      { id: 1, appointmentID: 'AP-001', doctor: 'Dr. Smith', time: '9:00 AM', date: '14/11/2023', concern: 'General Concerns' },
+      ];
+
+    return (
+      <table>
+        <thead>
+          <tr style={{ background: 'black', color: 'white' }}>
+            <th>#</th>
+            <th>Appointment ID</th>
+            <th>Doctor</th>
+            <th>Time</th>
+            <th>Date</th>
+            <th>Concern</th>
+          </tr>
+        </thead>
+        <tbody>
+          {appointmentData.map((appointment, index) => (
+            <tr key={appointment.id}>
+              <td>{index + 1}</td>
+              <td>{appointment.appointmentID}</td>
+              <td>{appointment.doctor}</td>
+              <td>{appointment.time}</td>
+              <td>{appointment.date}</td>
+              <td>{appointment.concern}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     );
   };
 
@@ -120,47 +158,46 @@ export default function HomeUser() {
     <div>
       <div className="header">
         <button
-          className={activeTab === 'User' ? 'active' : ''}
-          onClick={() => handleTabClick('User')}
+          className={activeTab === "User" ? "active" : ""}
+          onClick={() => handleTabClick("User")}
         >
           User
         </button>
         <button
-          className={activeTab === ' Make Appointment' ? 'active' : ''}
-          onClick={() => handleTabClick('Make Appointment')}
+          className={activeTab === " Make Appointment" ? "active" : ""}
+          onClick={() => handleTabClick("Make Appointment")}
         >
           Make Appointment
         </button>
         <button
-          className={activeTab === 'Doctors' ? 'active' : ''}
-          onClick={() => handleTabClick('Doctors')}
+          className={activeTab === "Doctors" ? "active" : ""}
+          onClick={() => handleTabClick("Doctors")}
         >
           Doctors
         </button>
         <button
-          className={activeTab === 'Existing Appointments' ? 'active' : ''}
-          onClick={() => handleTabClick('Existing Appointments')}
+          className={activeTab === "Existing Appointments" ? "active" : ""}
+          onClick={() => handleTabClick("Existing Appointments")}
         >
           Existing Appointments
         </button>
         <button
-          className={activeTab === 'Prescriptions' ? 'active' : ''}
-          onClick={() => handleTabClick('Prescriptions')}
+          className={activeTab === "Prescriptions" ? "active" : ""}
+          onClick={() => handleTabClick("Prescriptions")}
         >
           Prescriptions
         </button>
         <button
-          className={activeTab === 'Planned Operations' ? 'active' : ''}
-          onClick={() => handleTabClick('Planned Operations')}
+          className={activeTab === "Planned Operations" ? "active" : ""}
+          onClick={() => handleTabClick("Planned Operations")}
         >
           Planned Operations
         </button>
-        
       </div>
 
       <div className="content">
-        {activeTab === 'User' && <h1>Welcome to your Patient Home Page!</h1>}
-        {activeTab === 'Make Appointment' && (
+        {activeTab === "User" && <h1>Welcome to your Patient Home Page!</h1>}
+        {activeTab === "Make Appointment" && (
           <div className="appointment-tab">
             <h1>Book An Appointment!</h1>
             <label>Select a Doctor:</label>
@@ -181,6 +218,20 @@ export default function HomeUser() {
               <option value="5:00 PM">5:00 PM</option>
             </select>
 
+            <label>Select an available Date:</label>
+            <select value={selectedDate} onChange={handleDateSelect}>
+              <option value="">Select a Date</option>
+              <option value="14/11/2023">14/11/2023</option>
+              <option value="15/11/2023">15/11/2023</option>
+              <option value="16/11/2023">16/11/2023</option>
+              <option value="17/11/2023">17/11/2023</option>
+              <option value="18/11/2023">18/11/2023</option>
+              <option value="19/11/2023">19/11/2023</option>
+              <option value="20/11/2023">20/11/2023</option>
+              <option value="21/11/2023">21/11/2023</option>
+              <option value="22/11/2023">22/11/2023</option>
+            </select>
+
             <label>Select a concern:</label>
             <select value={selectedConcern} onChange={handleConcernSelect}>
               <option value="">Select a Concern</option>
@@ -194,27 +245,36 @@ export default function HomeUser() {
               <option value="Injuries">Injuries</option>
             </select>
 
-            <button className="submit-button" onClick={handleAppBooked}>Submit</button>
+            <button className="submit-button" onClick={handleAppBooked}>
+              Submit
+            </button>
             {appButton && <p>Thank you, your appointment has been booked.</p>}
           </div>
         )}
 
-        {activeTab === 'Doctors' && (
-          <div className = "doctor-Tab">
+        {activeTab === "Doctors" && (
+          <div className="doctor-Tab">
             <h1>Here are our Doctors!</h1>
             <DoctorsList />
           </div>
         )}
 
-        {activeTab === 'Prescriptions' && (
-          <div className = "prescription-Tab">
+        {activeTab === "Existing Appointments" && (
+          <div className="existingappointments-Tab">
+            <h1>Your Active Appointments</h1>
+            <ExistingAppointmentTable />
+          </div>
+        )}
+
+        {activeTab === "Prescriptions" && (
+          <div className="prescription-Tab">
             <h1>Your Active Prescriptions</h1>
             <PrescriptionsTable />
           </div>
-        )} 
+        )}
 
-        {activeTab === 'Planned Operations' && (
-          <div className = "operations-Tab" >
+        {activeTab === "Planned Operations" && (
+          <div className="operations-Tab">
             <h1>Your Upcoming Planned Procedures</h1>
             <PlannedOperationsTable />
           </div>
